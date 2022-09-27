@@ -1,3 +1,5 @@
+
+Hello Everyone!! This is a simple CRUD based ReactJS + SpringBoot Application where "nutritionApp" contains the backend code and rest files are for the frontend portion. Thank You!!
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
