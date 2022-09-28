@@ -6,16 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table
 public class NutritionPlan {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nutriPlanId;
 	@Column
+	@NotBlank(message = "nutriPlanName cannot be blank")
 	private String nutriPlanName;
 	@Column
 	private String planDescription;
@@ -72,6 +74,20 @@ public class NutritionPlan {
 
 	public void setPlanDescription(String planDescription) {
 		this.planDescription = planDescription;
+	}
+
+	public NutritionPlan() {
+
+	}
+
+	public NutritionPlan(String nutriPlanName, String planDescription, Float nutriPlanPrice, Float created_At,
+			Float updated_At) {
+		super();
+		this.nutriPlanName = nutriPlanName;
+		this.planDescription = planDescription;
+		this.nutriPlanPrice = nutriPlanPrice;
+		this.created_At = created_At;
+		this.updated_At = updated_At;
 	}
 
 }

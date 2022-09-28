@@ -16,13 +16,11 @@ public class WeightLog {
 	@Column
 	private int weightId;
 	@Column
-	private int custId;
+	private Float weight;
 	@Column
-	private float weight;
+	private Float created_At;
 	@Column
-	private float created_At;
-	@Column
-	private float updated_At;
+	private Float updated_At;
 
 	public int getWeightId() {
 		return weightId;
@@ -32,35 +30,39 @@ public class WeightLog {
 		this.weightId = weightId;
 	}
 
-	public float getWeight() {
+	public Float getWeight() {
 		return weight;
 	}
 
-	public void setWeight(float weight) {
+	public void setWeight(Float weight) {
 		this.weight = weight;
 	}
 
-	public float getCreated_At() {
+	public Float getCreated_At() {
 		return created_At;
 	}
 
-	public void setCreated_At(float created_At) {
+	public void setCreated_At(Float created_At) {
 		this.created_At = created_At;
 	}
 
-	public float getUpdated_At() {
+	public Float getUpdated_At() {
 		return updated_At;
 	}
 
-	public void setUpdated_At(float updated_At) {
+	public void setUpdated_At(Float updated_At) {
 		this.updated_At = updated_At;
 	}
 
-	public int getCustId() {
-		return custId;
+	public WeightLog() {
+
 	}
 
-	public void setCustId(int custId) {
-		this.custId = custId;
+	public WeightLog(Float weight, Float created_At, Float updated_At) {
+		super();
+		this.weight = weight;
+		this.created_At = created_At;
+		this.updated_At = updated_At;
 	}
+
 }

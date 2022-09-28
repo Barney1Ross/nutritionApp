@@ -6,22 +6,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table
 public class DietPlan {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int dietPlanId;
 	@Column
+	@NotBlank(message = "foodType cannot be empty")
 	private String foodType;
 	@Column
+	@NotBlank(message = "foodType cannot be empty")
 	private String slots;
 	@Column
 	private Float proteinRatio;
-	
+	@Column
+	private Float carbsRatio;
+	@Column
+	private Float fatRatio;
+	@Column
+	private Float total;
+
 	public Float getProteinRatio() {
 		return proteinRatio;
 	}
@@ -54,13 +63,6 @@ public class DietPlan {
 		this.total = total;
 	}
 
-	@Column
-	private Float carbsRatio;
-	@Column
-	private Float fatRatio;
-	@Column
-	private Float total;
-
 	public int getDietPlanId() {
 		return dietPlanId;
 	}
@@ -77,8 +79,6 @@ public class DietPlan {
 		this.foodType = foodType;
 	}
 
-	
-
 	public String getSlots() {
 		return slots;
 	}
@@ -87,6 +87,20 @@ public class DietPlan {
 		this.slots = slots;
 	}
 
-	
+	public DietPlan() {
+
+	}
+
+	// parameterized constructor excluding dietPlanId
+	public DietPlan(String foodType, String slots, Float proteinRatio, Float carbsRatio, Float fatRatio, Float total) {
+		super();
+		this.foodType = foodType;
+		this.slots = slots;
+		this.proteinRatio = proteinRatio;
+		this.carbsRatio = carbsRatio;
+		this.fatRatio = fatRatio;
+		this.total = total;
+
+	}
 
 }

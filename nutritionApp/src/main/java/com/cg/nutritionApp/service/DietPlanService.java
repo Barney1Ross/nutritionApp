@@ -1,6 +1,5 @@
 package com.cg.nutritionApp.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,18 +7,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cg.nutritionApp.entity.DietPlan;
+import com.cg.nutritionApp.entity.NutriAppUser;
 import com.cg.nutritionApp.exceptions.DietPlanException;
 import com.cg.nutritionApp.repository.DietPlanRepository;
+import com.cg.nutritionApp.repository.UserRepository;
 
 @Service
 public class DietPlanService {
 
 	@Autowired
 	DietPlanRepository dietPlanRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	// saving the dietPlans ~ create object
 	public String saveDietPlan(DietPlan dietPlan) {
@@ -29,34 +30,30 @@ public class DietPlanService {
 
 	// getting all the dietPlans ~ read objects
 	public List<DietPlan> getAllDietPlans() {
-
-		List<DietPlan> dietPlans = new ArrayList<DietPlan>();
-		dietPlanRepository.findAll().forEach(diet -> dietPlans.add(diet));
-		return dietPlans;
+		return dietPlanRepository.findAll();
+		
 	}
 
 	// fetching single dietPlan as per dietPlanid ~read single object
-	public ResponseEntity<DietPlan> getDietPlanById(@PathVariable int dietPlanid) {
+	public ResponseEntity<DietPlan> getDietPlanById(int dietPlanId) {
 		DietPlan dietPlan = null;
 		try {
-			dietPlan = dietPlanRepository.findById(dietPlanid)
-					.orElseThrow(() -> new DietPlanException("dietPlan does not exist with id :" + dietPlanid));
+			dietPlan = dietPlanRepository.findById(dietPlanId)
+					.orElseThrow(() -> new DietPlanException("dietPlan does not exist with id :" + dietPlanId));
 			return ResponseEntity.ok(dietPlan);
 		} catch (DietPlanException e) {
 
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			System.out.println(e.getMessage());			
 		}
 		return ResponseEntity.ok(dietPlan);
 	}
 
 	// updating dietPlan details according to dietPlanId
-	public ResponseEntity<DietPlan> updateDietPlan(@PathVariable int dietPlanId, @RequestBody DietPlan dietPlanDetails) {
+	public ResponseEntity<DietPlan> updateDietPlan(int dietPlanId, DietPlan dietPlanDetails) {
 			DietPlan dietPlan = null;
 			try {
 				dietPlan = dietPlanRepository.findById(dietPlanId)
 						.orElseThrow(() -> new DietPlanException("Diet Plan does not exist with id :" + dietPlanId));
-				
 				
 				dietPlan.setFoodType(dietPlanDetails.getFoodType());
 				dietPlan.setSlots(dietPlanDetails.getSlots());
@@ -71,7 +68,6 @@ public class DietPlanService {
 			} catch (DietPlanException e) {
 				
 				System.out.println(e.getMessage());
-				e.printStackTrace();
 			}
 			
 			DietPlan updatedDietPlan = dietPlanRepository.save(dietPlan);
@@ -80,14 +76,14 @@ public class DietPlanService {
 		}
 
 	// deleting dietPlan by dietPlanid
-	public ResponseEntity<Map<String, Boolean>> deleteDietPlan(@PathVariable int dietPlanId) {
+	public ResponseEntity<Map<String, Boolean>> deleteDietPlan(int dietPlanId) {
 		DietPlan dietPlan;
 		try {
 			dietPlan = dietPlanRepository.findById(dietPlanId)
 					.orElseThrow(() -> new DietPlanException("Diet plan does not exist with id :" + dietPlanId));
 			dietPlanRepository.delete(dietPlan);
 		} catch (DietPlanException e) {
-			System.out.println(e.getLocalizedMessage());;
+			System.out.println(e.getMessage());;
 		}
 
 		Map<String, Boolean> response = new HashMap<>();
@@ -95,4 +91,10 @@ public class DietPlanService {
 		return ResponseEntity.ok(response);
 	}
 
+	// fetching dietPlan for user 
+//	@SuppressWarnings("deprecation")
+//	public DietPlan getDietPlanForUser (int userId) {
+//		NutriAppUser user = userRepository.getById(userId);
+//		return user.getDietPlan();
+//	}
 }

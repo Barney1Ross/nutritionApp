@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table
@@ -16,29 +17,26 @@ public class Payment {
 	@Column
 	private int paymentId;
 	@Column
-	private int custId;
+	@NotBlank(message = "payment cannot be empty")
+	private String payment;
 	@Column
-	private int dietPlanId;
+	private Float created_At;
 	@Column
-	private boolean payment;
-	@Column
-	private float created_At;
-	@Column
-	private float updated_At;
+	private Float updated_At;
 
-	public float getCreated_At() {
+	public Float getCreated_At() {
 		return created_At;
 	}
 
-	public void setCreated_At(float created_At) {
+	public void setCreated_At(Float created_At) {
 		this.created_At = created_At;
 	}
 
-	public float getUpdated_At() {
+	public Float getUpdated_At() {
 		return updated_At;
 	}
 
-	public void setUpdated_At(float updated_At) {
+	public void setUpdated_At(Float updated_At) {
 		this.updated_At = updated_At;
 	}
 
@@ -50,28 +48,22 @@ public class Payment {
 		this.paymentId = paymentId;
 	}
 
-	public boolean getPayment() {
+	public String getPayment() {
 		return payment;
 	}
 
-	public void setPayment(boolean payment) {
+	public void setPayment(String payment) {
 		this.payment = payment;
 	}
 
-	public int getDietPlanId() {
-		return dietPlanId;
+	public Payment() {
+
 	}
 
-	public void setDietPlanId(int dietPlanId) {
-		this.dietPlanId = dietPlanId;
+	public Payment(String payment, Float created_At, Float updated_At) {
+		super();
+		this.payment = payment;
+		this.created_At = created_At;
+		this.updated_At = updated_At;
 	}
-
-	public int getCustId() {
-		return custId;
-	}
-
-	public void setCustId(int custId) {
-		this.custId = custId;
-	}
-
 }
